@@ -101,19 +101,27 @@
        style="width:200px; border-radius:10px;">
 </div>
   <img src="https://magbanuaedmar2-davqi.wordpress.com/wp-content/uploads/2026/04/17767395888175248605551109670388.jpg?w=300">
-</section><!-- CHATBOT -->
-<section style="text-align:center; padding:20px; background:#f5f5f5;">
-  <h2>Chat with Me 🤖</h2>
+<!-- CHATBOT -->
+<section style="text-align:center; padding:30px; background:#eef0f5;">
+  <h2 style="color:#292752;">Edmar Portfolio Chatbot 🤖</h2>
 
-  <div style="max-width:400px; margin:auto;">
-    <div id="chatbox" style="height:180px; overflow-y:auto; border:1px solid #ccc; padding:10px; background:#fff; text-align:left;"></div>
+  <div style="max-width:420px; margin:auto; background:#fff; padding:15px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
 
-    <input id="userInput" placeholder="Type a message..."
-      style="width:70%; padding:8px; margin-top:10px;">
-    <button onclick="sendMsg()" style="padding:8px;">Send</button>
+    <!-- chat box -->
+    <div id="chatbox" style="height:200px; overflow-y:auto; border:1px solid #ddd; padding:10px; text-align:left; border-radius:8px;"></div>
+
+    <!-- input -->
+    <input id="userInput" placeholder="Ask about Edmar..."
+      style="width:70%; padding:10px; margin-top:10px; border:1px solid #ccc; border-radius:5px;">
+
+    <button onclick="sendMsg()"
+      style="padding:10px 15px; background:#292752; color:white; border:none; border-radius:5px;">
+      Send
+    </button>
   </div>
 </section>
 
+<!-- SCRIPT -->
 <script>
 function sendMsg() {
   let input = document.getElementById("userInput").value;
@@ -121,25 +129,95 @@ function sendMsg() {
 
   if(input === "") return;
 
-  // show user message
+  // user message
   chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
 
-  let reply = "Sorry, I don't understand 🤖";
+  let msg = input.toLowerCase();
+  let reply = "";
 
-  // simple responses
-  if(input.toLowerCase().includes("hello")) reply = "Hi there! 👋";
-  if(input.toLowerCase().includes("name")) reply = "I'm Edmar's chatbot!";
-  if(input.toLowerCase().includes("skills")) reply = "HTML, CSS, WordPress, Canva & Figma.";
-  if(input.toLowerCase().includes("project")) reply = "Check my projects above 👆";
-  if(input.toLowerCase().includes("contact")) reply = "Email: magbanuaedmar2@gmail.com";
+  // BOT RESPONSES (EDMAR PORTFOLIO)
+  if(msg.includes("hello")) {
+    reply = "Hi 👋 I'm Edmar's portfolio assistant!";
+  }
+  else if(msg.includes("who are you") || msg.includes("name")) {
+    reply = "I'm the chatbot of Edmar Magbanua's portfolio 💻";
+  }
+  else if(msg.includes("skills")) {
+    reply = "Edmar's skills: HTML, CSS, WordPress, Canva, Figma, Photoshop.";
+  }
+  else if(msg.includes("project")) {
+    reply = "Edmar creates web design projects, UI designs, and WordPress sites.";
+  }
+  else if(msg.includes("contact")) {
+    reply = "Email: magbanuaedmar2@gmail.com | Facebook: Edmar Pasquil Magbanua";
+  }
+  else if(msg.includes("about")) {
+    reply = "Edmar is a web designer who builds modern and responsive websites.";
+  }
+  else {
+    reply = "I can help you with: about, skills, projects, contact 🤖";
+  }
 
-  // show bot reply
+  // bot message
   chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
 
   // clear input
   document.getElementById("userInput").value = "";
 
-  // auto scroll
+  // scroll down
   chat.scrollTop = chat.scrollHeight;
 }
-    </script>
+</script>
+}
+</script>
+<section style="text-align:center; padding:20px;">
+  <h2>Login</h2>
+
+  <input id="email" placeholder="Email" style="padding:8px;"><br><br>
+  <input id="pass" type="password" placeholder="Password" style="padding:8px;"><br><br>
+
+  <button onclick="signup()">Sign Up</button>
+  <button onclick="login()">Login</button>
+
+  <p id="status"></p>
+</section>
+
+<script>
+// Firebase config (replace with your own later)
+const firebaseConfig = {}
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT",
+};
+
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// SIGN UP
+function signup(){
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
+
+  auth.createUserWithEmailAndPassword(email, pass)
+  .then(() => {
+    document.getElementById("status").innerHTML = "Account Created ✅";
+  })
+  .catch(err => {
+    document.getElementById("status").innerHTML = err.message;
+  });
+
+
+// LOGIN
+function login(){
+  let email = document.getElementById("email").value;
+  let pass = document.getElementById("pass").value;
+
+  auth.signInWithEmailAndPassword(email, pass)
+  .then(() => {
+    document.getElementById("status").innerHTML = "Login Successful 🎉";
+  })
+  .catch(err => {
+    document.getElementById("status").innerHTML = err.message;
+  });
+
+  </script>
